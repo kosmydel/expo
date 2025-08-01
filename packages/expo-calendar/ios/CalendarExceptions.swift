@@ -119,3 +119,21 @@ final internal class EventDialogInProgressException: Exception {
     "Different calendar dialog is already being presented. Await its result before presenting another."
   }
 }
+
+final internal class CalendarNoLongerExistsException: Exception {
+  override var reason: String {
+    "The specified calendar no longer exists."
+  }
+}
+
+final internal class ItemNoLongerExistsException: Exception {
+  override var reason: String {
+    "The specified calendar item no longer exists."
+  }
+}
+
+final internal class NotImplementedYetException: Exception {
+    override var reason: String {
+        "Not implemented yet."
+    }
+}

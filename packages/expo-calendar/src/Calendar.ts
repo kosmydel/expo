@@ -1,5 +1,5 @@
 import { PermissionResponse, createPermissionHook, UnavailabilityError } from 'expo-modules-core';
-import { Platform, processColor } from 'react-native';
+import { Platform, processColor, ProcessedColorValue } from 'react-native';
 
 import ExpoCalendar from './ExpoCalendar';
 
@@ -30,7 +30,7 @@ export type RecurringEventOptions = {
   instanceStartDate?: string | Date;
 };
 
-type Organizer = {
+export type Organizer = {
   isCurrentUser: boolean;
   name?: string;
   role: string;
@@ -71,7 +71,7 @@ export type Calendar = {
   /**
    * Color used to display this calendar's events.
    */
-  color: string;
+  color: string | ProcessedColorValue; // TODO: Remove the ProcessedColorValue from the exported type
   /**
    * Whether the calendar is used in the Calendar or Reminders OS app.
    * @platform ios
@@ -637,6 +637,7 @@ export type PresentationOptions = {
    */
   startNewActivityTask?: boolean;
 };
+
 export type OpenEventPresentationOptions = PresentationOptions & {
   /**
    * Whether to allow the user to edit the previewed event.
@@ -1641,7 +1642,7 @@ export enum ReminderStatus {
   INCOMPLETE = 'incomplete',
 }
 
-function stringifyIfDate<T extends Date>(date: Date | T): string | T {
+export function stringifyIfDate<T extends Date>(date: Date | T): string | T {
   return date instanceof Date ? date.toISOString() : date;
 }
 
@@ -1649,7 +1650,7 @@ type StringifyDates<T extends Record<string, any>> = {
   [K in keyof T]: T[K] extends Date ? string : T[K];
 };
 
-function stringifyDateValues<T extends Record<string, any>>(obj: T): StringifyDates<T> {
+export function stringifyDateValues<T extends Record<string, any>>(obj: T): StringifyDates<T> {
   if (typeof obj !== 'object' || obj === null) return obj;
   return Object.keys(obj).reduce((acc, key) => {
     const value = obj[key];

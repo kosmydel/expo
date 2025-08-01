@@ -893,10 +893,10 @@ export var ReminderStatus;
     ReminderStatus["COMPLETED"] = "completed";
     ReminderStatus["INCOMPLETE"] = "incomplete";
 })(ReminderStatus || (ReminderStatus = {}));
-function stringifyIfDate(date) {
+export function stringifyIfDate(date) {
     return date instanceof Date ? date.toISOString() : date;
 }
-function stringifyDateValues(obj) {
+export function stringifyDateValues(obj) {
     if (typeof obj !== 'object' || obj === null)
         return obj;
     return Object.keys(obj).reduce((acc, key) => {

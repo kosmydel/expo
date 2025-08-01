@@ -1,4 +1,5 @@
 import { PermissionResponse } from 'expo-modules-core';
+import { ProcessedColorValue } from 'react-native';
 export { PermissionResponse, PermissionStatus, PermissionHookOptions, PermissionExpiration, } from 'expo-modules-core';
 /**
  * @platform ios
@@ -18,7 +19,7 @@ export type RecurringEventOptions = {
      */
     instanceStartDate?: string | Date;
 };
-type Organizer = {
+export type Organizer = {
     isCurrentUser: boolean;
     name?: string;
     role: string;
@@ -57,7 +58,7 @@ export type Calendar = {
     /**
      * Color used to display this calendar's events.
      */
-    color: string;
+    color: string | ProcessedColorValue;
     /**
      * Whether the calendar is used in the Calendar or Reminders OS app.
      * @platform ios
@@ -1075,4 +1076,9 @@ export declare enum ReminderStatus {
     COMPLETED = "completed",
     INCOMPLETE = "incomplete"
 }
+export declare function stringifyIfDate<T extends Date>(date: Date | T): string | T;
+type StringifyDates<T extends Record<string, any>> = {
+    [K in keyof T]: T[K] extends Date ? string : T[K];
+};
+export declare function stringifyDateValues<T extends Record<string, any>>(obj: T): StringifyDates<T>;
 //# sourceMappingURL=Calendar.d.ts.map
